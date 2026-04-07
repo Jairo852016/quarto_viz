@@ -1,0 +1,31 @@
+---
+title: "Mi primera visualización con Altair"
+---
+
+# Dataset
+
+Vamos a cargar el dataset desde 'vega_datasets':
+
+```{python}
+import altair as alt
+from vega_datasets import data
+```
+
+vamos a usar el dataset 'cars' que viene incluido en 'vega_datasets':
+```{python}
+cars = data.cars()
+cars.head()
+```
+# Gráfico de dispersión
+Vamos a crear un gráfico de dispersión para visualizar la relación entre el peso del auto ('Weight_in_lbs') y su rendimiento en millas por galón ('Miles_per_Gallon').
+```{python}
+scatter_plot = alt.Chart(cars).mark_circle(size=60).encode(
+    x='Weight_in_lbs',
+    y='Miles_per_Gallon',
+    color='Origin'
+).properties(
+    title='Relación entre peso y rendimiento de los autos'
+)
+
+scatter_plot
+```

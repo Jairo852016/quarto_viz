@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "viz.html",
+    "href": "viz.html",
+    "title": "Mi primera visualización con Altair",
+    "section": "",
+    "text": "Dataset\nVamos a cargar el dataset desde ‘vega_datasets’:\n\nimport altair as alt\nfrom vega_datasets import data\n\nvamos a usar el dataset ‘cars’ que viene incluido en ‘vega_datasets’:\n\ncars = data.cars()\ncars.head()\n\n\n\n\n\n\n\n\nName\nMiles_per_Gallon\nCylinders\nDisplacement\nHorsepower\nWeight_in_lbs\nAcceleration\nYear\nOrigin\n\n\n\n\n0\nchevrolet chevelle malibu\n18.0\n8\n307.0\n130.0\n3504\n12.0\n1970-01-01\nUSA\n\n\n1\nbuick skylark 320\n15.0\n8\n350.0\n165.0\n3693\n11.5\n1970-01-01\nUSA\n\n\n2\nplymouth satellite\n18.0\n8\n318.0\n150.0\n3436\n11.0\n1970-01-01\nUSA\n\n\n3\namc rebel sst\n16.0\n8\n304.0\n150.0\n3433\n12.0\n1970-01-01\nUSA\n\n\n4\nford torino\n17.0\n8\n302.0\n140.0\n3449\n10.5\n1970-01-01\nUSA\n\n\n\n\n\n\n\n\n\nGráfico de dispersión\nVamos a crear un gráfico de dispersión para visualizar la relación entre el peso del auto (‘Weight_in_lbs’) y su rendimiento en millas por galón (‘Miles_per_Gallon’).\n\nscatter_plot = alt.Chart(cars).mark_circle(size=60).encode(\n    x='Weight_in_lbs',\n    y='Miles_per_Gallon',\n    color='Origin'\n).properties(\n    title='Relación entre peso y rendimiento de los autos'\n)\n\nscatter_plot"
+  },
+  {
+    "objectID": "index.html#objetivo-general",
+    "href": "index.html#objetivo-general",
+    "title": "Bienvenidos a mi sitio Quarto",
+    "section": "Objetivo general",
+    "text": "Objetivo general"
+  },
+  {
+    "objectID": "index.html#objetivos-específicos",
+    "href": "index.html#objetivos-específicos",
+    "title": "Bienvenidos a mi sitio Quarto",
+    "section": "Objetivos específicos",
+    "text": "Objetivos específicos\n\nObjetivo específico 1\nObjetivo específico 2\nObjetivo específico 3"
+  }
+]
