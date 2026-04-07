@@ -29,3 +29,18 @@ scatter_plot = alt.Chart(cars).mark_circle(size=60).encode(
 
 scatter_plot
 ```
+
+# visualización de barras
+Vamos a crear un gráfico de barras para mostrar el número de autos por país de origen ('Origin').
+```{python}
+bar_chart = alt.Chart(cars).mark_bar().encode(
+    x='Origin',
+    y='count()',
+    color='Origin'
+).properties(
+    title='Número de autos por país de origen'
+)
+
+bar_chart
+```
+
