@@ -1,5 +1,13 @@
-#python
-.venv 
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Jupyter
+.ipynb_checkpoints/
 # Quarto
 _site/
 .quarto/
