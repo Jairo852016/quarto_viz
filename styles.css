@@ -11,15 +11,14 @@ body {
 
 /* Contenedor principal */
 main.content {
-  max-width: 1100px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 20px 28px 60px 28px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 10px 35px rgba(31, 78, 121, 0.10);
-  border-radius: 18px;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  backdrop-filter: blur(4px);
+  padding: 18px 20px 40px 20px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 18px rgba(31, 78, 121, 0.08);
+  border-radius: 14px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }
 
 /* =========================
@@ -27,11 +26,11 @@ main.content {
 ========================= */
 h1.title {
   text-align: center;
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #0f2f57;
   margin-bottom: 0.5rem;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 
 .subtitle,
@@ -58,13 +57,29 @@ h1, h2, h3, h4 {
   letter-spacing: -0.2px;
 }
 
+/* Números de secciones más pequeños */
+h2 .header-section-number,
+h3 .header-section-number,
+h4 .header-section-number {
+  font-size: 0.72em;
+  opacity: 0.9;
+  font-weight: 700;
+  margin-right: 0.35em;
+}
+
+h3 .header-section-number,
+h4 .header-section-number {
+  font-size: 0.65em;
+}
+
 h2 {
-  margin-top: 2.2rem;
-  padding: 10px 14px;
+  margin-top: 2rem;
+  padding: 8px 12px;
   background: linear-gradient(90deg, #1f4e79, #3d7db8);
   color: white;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(31, 78, 121, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(31, 78, 121, 0.14);
+  font-size: 1.35rem;
 }
 
 h3 {
@@ -119,13 +134,22 @@ table {
   background: white;
 }
 
-thead th {
+/* Encabezados de tablas en blanco */
+thead th,
+table thead th,
+th {
   background: linear-gradient(90deg, #163a5f, #2e6da4);
-  color: white;
+  color: #ffffff !important;
   font-weight: 700;
   text-align: center;
   padding: 12px 10px;
   border: none;
+}
+
+thead th *,
+table thead th *,
+th * {
+  color: #ffffff !important;
 }
 
 tbody td {
@@ -173,10 +197,11 @@ code {
 #TOC,
 .sidebar nav[role="doc-toc"] {
   background: white;
-  border-radius: 14px;
-  padding: 16px 14px;
-  box-shadow: 0 8px 24px rgba(15, 47, 87, 0.08);
+  border-radius: 12px;
+  padding: 12px 12px;
+  box-shadow: 0 4px 14px rgba(15, 47, 87, 0.06);
   border: 1px solid #e5eef8;
+  font-size: 0.92rem;
 }
 
 .sidebar nav[role="doc-toc"] ul li a {
@@ -216,7 +241,8 @@ code {
    GRÁFICOS / FIGURAS
 ========================= */
 .quarto-figure,
-.cell-output-display {
+.cell-output-display,
+.vega-embed {
   background: white;
   border-radius: 16px;
   padding: 14px;
@@ -247,6 +273,14 @@ hr {
 }
 
 /* =========================
+   BOTONES Y DETALLES VISUALES
+========================= */
+button,
+.btn {
+  border-radius: 10px;
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 900px) {
@@ -267,4 +301,7 @@ hr {
   body {
     font-size: 15.5px;
   }
+}
+.page-columns {
+  gap: 1.2rem;
 }

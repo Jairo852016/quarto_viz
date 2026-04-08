@@ -244,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>altair</code> se emplea para construir las visualizaciones, ya que permite crear gráficos declarativos, claros e interactivos.</li>
 </ul>
 <p>Luego, se carga el archivo CSV directamente desde la URL proporcionada y se almacena en un DataFrame llamado <code>df</code>, que será la base de todo el trabajo.</p>
-<div id="1606e80f" class="cell" data-execution_count="1">
+<div id="ed907a7f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -330,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exploración-inicial" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Exploración inicial</h1>
 <p>Antes de realizar las visualizaciones, es importante explorar la estructura general del dataset. Esto permite conocer los nombres de las variables, los tipos de datos y detectar si existen valores faltantes que deban tratarse antes del análisis.</p>
-<div id="e297d48b" class="cell" data-execution_count="2">
+<div id="17784770" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.info()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.describe(include<span class="op">=</span><span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -511,7 +511,7 @@ Important
 <li><code>culmen_depth_mm</code></li>
 </ul>
 <p>De esta manera, se garantiza que las comparaciones y visualizaciones se hagan sobre datos consistentes y completos.</p>
-<div id="5c68a801" class="cell" data-execution_count="3">
+<div id="81dde504" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"species"</span>, <span class="st">"island"</span>, <span class="st">"sex"</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"body_mass_g"</span>, <span class="st">"culmen_length_mm"</span>, <span class="st">"culmen_depth_mm"</span></span>
@@ -552,7 +552,7 @@ Note
 <p>En esta sección se analiza la distribución de la masa corporal entre especies e islas, utilizando un boxplot.</p>
 </div>
 </div>
-<div id="820c9883" class="cell" data-execution_count="4">
+<div id="3d39602c" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chart_q1 <span class="op">=</span> alt.Chart(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_clean.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>).properties(</span>
@@ -571,23 +571,23 @@ Note
 <div class="cell-output cell-output-display" data-execution_count="4">
 
 <style>
-  #altair-viz-19814718006b41c7a43a09d411c27097.vega-embed {
+  #altair-viz-89d4e9452a594f3d9795363bb719c81e.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-19814718006b41c7a43a09d411c27097.vega-embed details,
-  #altair-viz-19814718006b41c7a43a09d411c27097.vega-embed details summary {
+  #altair-viz-89d4e9452a594f3d9795363bb719c81e.vega-embed details,
+  #altair-viz-89d4e9452a594f3d9795363bb719c81e.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-19814718006b41c7a43a09d411c27097"></div>
+<div id="altair-viz-89d4e9452a594f3d9795363bb719c81e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-19814718006b41c7a43a09d411c27097") {
-      outputDiv = document.getElementById("altair-viz-19814718006b41c7a43a09d411c27097");
+    if (outputDiv.id !== "altair-viz-89d4e9452a594f3d9795363bb719c81e") {
+      outputDiv = document.getElementById("altair-viz-89d4e9452a594f3d9795363bb719c81e");
     }
 
     const paths = {
@@ -642,7 +642,7 @@ Note
 </section>
 <section id="construccion-de-tabla" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="construccion-de-tabla"><span class="header-section-number">6.4</span> Construccion de Tabla</h2>
-<div id="1f920e7a" class="cell" data-execution_count="5">
+<div id="92e42255" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar valores faltantes en la variable analizada</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="op">=</span> df_clean.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -769,7 +769,7 @@ Note
 <p>Aquí se busca mostrar la relación entre dos variables categóricas: species e island.</p>
 <p>Una visualización apropiada es un heatmap de frecuencias, porque:</p>
 <p>resume la relación entre categorías; permite ver asociaciones de forma compacta; facilita identificar rápidamente ausencias y concentraciones. ## Preparación de datos</p>
-<div id="038c2c21" class="cell" data-execution_count="6">
+<div id="8043dc43" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="op">=</span> (</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df_clean.groupby([<span class="st">"island"</span>, <span class="st">"species"</span>])</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    .size()</span>
@@ -830,7 +830,7 @@ Note
 </section>
 <section id="construccion-del-grafico-1" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="construccion-del-grafico-1"><span class="header-section-number">7.2</span> Construccion del Grafico</h2>
-<div id="7b9e092a" class="cell" data-execution_count="7">
+<div id="4ed60d59" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>chart_q2 <span class="op">=</span> alt.Chart(heatmap_data).mark_rect().encode(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>alt.X(<span class="st">"species:N"</span>, title<span class="op">=</span><span class="st">"Especie"</span>),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">"island:N"</span>, title<span class="op">=</span><span class="st">"Isla"</span>),</span>
@@ -861,23 +861,23 @@ Note
 <div class="cell-output cell-output-display" data-execution_count="7">
 
 <style>
-  #altair-viz-164b9c877f3a4c77b090b5ccaa4fa031.vega-embed {
+  #altair-viz-55093467a5434b6ba608cd1465eef9ef.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-164b9c877f3a4c77b090b5ccaa4fa031.vega-embed details,
-  #altair-viz-164b9c877f3a4c77b090b5ccaa4fa031.vega-embed details summary {
+  #altair-viz-55093467a5434b6ba608cd1465eef9ef.vega-embed details,
+  #altair-viz-55093467a5434b6ba608cd1465eef9ef.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-164b9c877f3a4c77b090b5ccaa4fa031"></div>
+<div id="altair-viz-55093467a5434b6ba608cd1465eef9ef"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-164b9c877f3a4c77b090b5ccaa4fa031") {
-      outputDiv = document.getElementById("altair-viz-164b9c877f3a4c77b090b5ccaa4fa031");
+    if (outputDiv.id !== "altair-viz-55093467a5434b6ba608cd1465eef9ef") {
+      outputDiv = document.getElementById("altair-viz-55093467a5434b6ba608cd1465eef9ef");
     }
 
     const paths = {
@@ -947,11 +947,11 @@ Note
 <section id="elección-del-gráfico-2" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="elección-del-gráfico-2"><span class="header-section-number">8.2</span> Elección del gráfico</h2>
 <p>El gráfico seleccionado es un boxplot, porque:</p>
-<p>compara distribuciones entre dos categorías (sex); permite observar mediana, dispersión y posibles valores atípicos; es claro y fácil de interpretar.</p>
+<p>Compara distribuciones entre dos categorías (sex); permite observar mediana, dispersión y posibles valores atípicos; es claro y fácil de interpretar.</p>
 </section>
 <section id="visualización-general-por-sexo" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="visualización-general-por-sexo"><span class="header-section-number">8.3</span> Visualización general por sexo</h2>
-<div id="0a27cf32" class="cell" data-execution_count="8">
+<div id="d5e82f77" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>chart_q3 <span class="op">=</span> alt.Chart(df_clean).mark_boxplot(size<span class="op">=</span><span class="dv">40</span>).encode(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>alt.X(<span class="st">"sex:N"</span>, title<span class="op">=</span><span class="st">"Sexo"</span>),</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">"culmen_length_mm:Q"</span>, title<span class="op">=</span><span class="st">"Longitud del culmen (mm)"</span>),</span>
@@ -970,23 +970,23 @@ Note
 <div class="cell-output cell-output-display" data-execution_count="8">
 
 <style>
-  #altair-viz-4a621da8b890468195b5744307a588a3.vega-embed {
+  #altair-viz-8f462a3716e948aa938c30c408b1998f.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-4a621da8b890468195b5744307a588a3.vega-embed details,
-  #altair-viz-4a621da8b890468195b5744307a588a3.vega-embed details summary {
+  #altair-viz-8f462a3716e948aa938c30c408b1998f.vega-embed details,
+  #altair-viz-8f462a3716e948aa938c30c408b1998f.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-4a621da8b890468195b5744307a588a3"></div>
+<div id="altair-viz-8f462a3716e948aa938c30c408b1998f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4a621da8b890468195b5744307a588a3") {
-      outputDiv = document.getElementById("altair-viz-4a621da8b890468195b5744307a588a3");
+    if (outputDiv.id !== "altair-viz-8f462a3716e948aa938c30c408b1998f") {
+      outputDiv = document.getElementById("altair-viz-8f462a3716e948aa938c30c408b1998f");
     }
 
     const paths = {
@@ -1042,7 +1042,7 @@ Note
 <section id="visualización-complementaria-por-especie" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="visualización-complementaria-por-especie"><span class="header-section-number">8.4</span> Visualización complementaria por especie</h2>
 <p>También se separa la comparación por especie. Esto permite observar si las diferencias entre machos y hembras se mantienen o cambian según el grupo biológico.</p>
-<div id="cf365ae0" class="cell" data-execution_count="9">
+<div id="b6efb352" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>chart_q3_facet <span class="op">=</span> alt.Chart(df_clean).mark_boxplot(size<span class="op">=</span><span class="dv">35</span>).encode(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>alt.X(<span class="st">"sex:N"</span>, title<span class="op">=</span><span class="st">"Sexo"</span>),</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">"culmen_length_mm:Q"</span>, title<span class="op">=</span><span class="st">"Longitud del culmen (mm)"</span>),</span>
@@ -1064,23 +1064,23 @@ Note
 <div class="cell-output cell-output-display" data-execution_count="9">
 
 <style>
-  #altair-viz-f87179650f5244329bc121d81c6bf271.vega-embed {
+  #altair-viz-728f0692979649a9833c43f08d69c559.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-f87179650f5244329bc121d81c6bf271.vega-embed details,
-  #altair-viz-f87179650f5244329bc121d81c6bf271.vega-embed details summary {
+  #altair-viz-728f0692979649a9833c43f08d69c559.vega-embed details,
+  #altair-viz-728f0692979649a9833c43f08d69c559.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-f87179650f5244329bc121d81c6bf271"></div>
+<div id="altair-viz-728f0692979649a9833c43f08d69c559"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f87179650f5244329bc121d81c6bf271") {
-      outputDiv = document.getElementById("altair-viz-f87179650f5244329bc121d81c6bf271");
+    if (outputDiv.id !== "altair-viz-728f0692979649a9833c43f08d69c559") {
+      outputDiv = document.getElementById("altair-viz-728f0692979649a9833c43f08d69c559");
     }
 
     const paths = {
