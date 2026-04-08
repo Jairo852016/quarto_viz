@@ -96,6 +96,8 @@ Para comparar la distribución de una variable cuantitativa entre grupos definid
 ## Facilitar comparacion entre subgrupos
 
 Para facilitar la comparación entre subgrupos sin sobrecargar un solo gráfico, se recurre al facetado (small multiples), separando la visualización en paneles según una de las variables categóricas, en este caso la isla. Cada panel mantiene la misma escala y estructura visual, lo que permite comparar las distribuciones de la masa corporal por especie dentro de cada isla de manera clara y ordenada. Esta estrategia reduce la complejidad visual, evita la superposición de demasiados grupos en un solo eje y mejora la legibilidad, haciendo más evidente tanto las diferencias entre especies como las variaciones entre islas.
+
+## Construccion del Grafico
 ```{python}
 chart_q1 = alt.Chart(
     df_clean.dropna(subset=["body_mass_g"])
@@ -112,6 +114,29 @@ chart_q1 = alt.Chart(
     title="Distribución de la masa corporal por especie e isla"
 )
 chart_q1
+```
+## Construccion de Tabla
+```{python}
+# Eliminar valores faltantes en la variable analizada
+penguins_clean = df_clean.dropna(subset=["body_mass_g"])
+
+# Calcular estadísticas descriptivas tipo boxplot
+tabla_boxplot = (
+    penguins_clean
+    .groupby(["island", "species"])["body_mass_g"]
+    .agg(
+        n="count",
+        minimo="min",
+        q1=lambda x: x.quantile(0.25),
+        mediana="median",
+        q3=lambda x: x.quantile(0.75),
+        maximo="max",
+        media="mean",
+        desviacion_std="std"
+    )
+    .reset_index()
+)
+tabla_boxplot
 ```
 ## Análisis e interpretación
 A partir de los resultados obtenidos, se observa que la masa corporal de los pingüinos varía principalmente según la especie y en segundo lugar, según la isla. La especie Gentoo, presente únicamente en la isla Biscoe, presenta las masas corporales más altas, con una mediana de 5000 g, un rango intercuartílico elevado (4700–5500 g) y valores máximos que alcanzan los 6300 g, lo que la diferencia claramente de las demás especies. En contraste, la especie Adelie, distribuida en las islas Biscoe, Dream y Torgersen, muestra masas corporales menores y bastante similares entre islas, con medianas de 3750 g en Biscoe, 3575 g en Dream y 3700 g en Torgersen, lo que indica una variación moderada asociada al entorno. Por su parte, la especie Chinstrap, presente solo en la isla Dream, presenta una mediana de 3700 g, comparable a la de Adelie en las distintas islas. En conjunto, los resultados indican que la especie es el factor que más influye en la masa corporal, mientras que la isla introduce variaciones menores dentro de una misma especie.
