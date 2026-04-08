@@ -1,0 +1,250 @@
+---
+title: "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos"
+author: "Bayron Panama - Jairo Perez"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: cosmo
+    code-fold: false
+    df-print: paged
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+# Objetivo
+
+Desarrollar la capacidad de seleccionar el tipo adecuado de gráfico para responder preguntas sobre datos categóricos y cuantitativos, utilizando el dataset de pingüinos.
+
+# Dataset
+
+El dataset utilizado en esta actividad se encuentra en la siguiente URL:
+
+<https://raw.githubusercontent.com/erickedu85/dataset/master/penguins.csv>
+
+# Librerías y carga de datos
+
+En esta sección se importan las librerías necesarias para el análisis y la visualización de los datos.
+
+- `pandas` se utiliza para cargar, explorar, limpiar y transformar el dataset.
+- `altair` se emplea para construir las visualizaciones, ya que permite crear gráficos declarativos, claros e interactivos.
+
+Luego, se carga el archivo CSV directamente desde la URL proporcionada y se almacena en un DataFrame llamado `df`, que será la base de todo el trabajo.
+
+```{python}
+import pandas as pd
+import altair as alt
+
+url = "https://raw.githubusercontent.com/erickedu85/dataset/master/penguins.csv"
+df = pd.read_csv(url)
+
+df.head()
+
+```
+# Exploración inicial
+
+Antes de realizar las visualizaciones, es importante explorar la estructura general del dataset. Esto permite conocer los nombres de las variables, los tipos de datos y detectar si existen valores faltantes que deban tratarse antes del análisis.
+```{python}
+df.info()
+df.describe(include="all")
+```
+
+# Limpieza de datos
+
+Antes de construir las visualizaciones, se realizó una etapa básica de limpieza de datos. En este caso, el objetivo fue trabajar únicamente con registros completos en las variables necesarias para responder las preguntas de la actividad.
+
+El dataset contiene algunas observaciones con valores faltantes. Si esos registros se dejan en el análisis, pueden generar problemas al momento de calcular estadísticas o construir gráficos, especialmente cuando se comparan grupos por especie, isla y sexo.
+
+Por esta razón, se utilizó `dropna()` para eliminar las filas que tuvieran valores nulos en las siguientes variables:
+
+- `species`
+- `island`
+- `sex`
+- `body_mass_g`
+- `culmen_length_mm`
+- `culmen_depth_mm`
+
+De esta manera, se garantiza que las comparaciones y visualizaciones se hagan sobre datos consistentes y completos.
+
+```{python}
+df_clean = df.dropna(subset=[
+    "species", "island", "sex",
+    "body_mass_g", "culmen_length_mm", "culmen_depth_mm"
+]).copy()
+
+df_clean = df_clean[df_clean["sex"].isin(["FEMALE", "MALE"])]
+
+df_clean.shape
+```
+
+El resultado de df_clean.shape permite verificar cuántas filas y columnas quedaron disponibles después de la limpieza. A partir de este punto, el nuevo DataFrame df_clean será la base para todo el análisis posterior.
+
+# Pregunta 1 – Distribución por grupo
+
+¿Cómo varía la masa corporal (body_mass_g) entre las diferentes especies y islas de los pingüinos?
+
+
+## Elección del gráfico
+
+Para comparar la distribución de una variable cuantitativa entre grupos definidos por dos variables categóricas, se utiliza un gráfico de cajas (boxplot). Este tipo de gráfico es adecuado porque permite visualizar de forma simultánea la mediana, la dispersión, el rango intercuartílico y los valores extremos de la variable analizada. En este caso, el boxplot facilita la comparación de la masa corporal entre distintas especies de pingüinos, permitiendo identificar diferencias claras en sus distribuciones y variabilidad, así como detectar posibles valores atípicos.
+
+## Facilitar comparacion entre subgrupos
+
+Para facilitar la comparación entre subgrupos sin sobrecargar un solo gráfico, se recurre al facetado (small multiples), separando la visualización en paneles según una de las variables categóricas, en este caso la isla. Cada panel mantiene la misma escala y estructura visual, lo que permite comparar las distribuciones de la masa corporal por especie dentro de cada isla de manera clara y ordenada. Esta estrategia reduce la complejidad visual, evita la superposición de demasiados grupos en un solo eje y mejora la legibilidad, haciendo más evidente tanto las diferencias entre especies como las variaciones entre islas.
+```{python}
+chart_q1 = alt.Chart(
+    df_clean.dropna(subset=["body_mass_g"])
+).properties(
+    width=140,
+    height=300
+).mark_boxplot().encode(
+    x=alt.X("species:N", title="Especie"),
+    y=alt.Y("body_mass_g:Q", title="Masa corporal (g)"),
+    color=alt.Color("species:N", legend=None)
+).facet(
+    column=alt.Column("island:N", title="Isla")
+).properties(
+    title="Distribución de la masa corporal por especie e isla"
+)
+chart_q1
+```
+## Análisis e interpretación
+A partir de los resultados obtenidos, se observa que la masa corporal de los pingüinos varía principalmente según la especie y en segundo lugar, según la isla. La especie Gentoo, presente únicamente en la isla Biscoe, presenta las masas corporales más altas, con una mediana de 5000 g, un rango intercuartílico elevado (4700–5500 g) y valores máximos que alcanzan los 6300 g, lo que la diferencia claramente de las demás especies. En contraste, la especie Adelie, distribuida en las islas Biscoe, Dream y Torgersen, muestra masas corporales menores y bastante similares entre islas, con medianas de 3750 g en Biscoe, 3575 g en Dream y 3700 g en Torgersen, lo que indica una variación moderada asociada al entorno. Por su parte, la especie Chinstrap, presente solo en la isla Dream, presenta una mediana de 3700 g, comparable a la de Adelie en las distintas islas. En conjunto, los resultados indican que la especie es el factor que más influye en la masa corporal, mientras que la isla introduce variaciones menores dentro de una misma especie.
+
+# Pregunta 2 – Ubicación de especies
+
+
+¿Qué especies de pingüinos se encuentran en cada isla? ¿Alguna especie está presente solo en una isla?
+
+## Elección del gráfico
+
+Aquí se busca mostrar la relación entre dos variables categóricas: species e island.
+
+Una visualización apropiada es un heatmap de frecuencias, porque:
+
+resume la relación entre categorías;
+permite ver asociaciones de forma compacta;
+facilita identificar rápidamente ausencias y concentraciones.
+## Preparación de datos
+
+
+```{python}
+heatmap_data = (
+    df_clean.groupby(["island", "species"])
+    .size()
+    .reset_index(name="frecuencia")
+)
+
+heatmap_data
+```
+## Construccion del Grafico
+
+```{python}
+chart_q2 = alt.Chart(heatmap_data).mark_rect().encode(
+    x=alt.X("species:N", title="Especie"),
+    y=alt.Y("island:N", title="Isla"),
+    color=alt.Color("frecuencia:Q", title="Frecuencia"),
+    tooltip=[
+        alt.Tooltip("island:N", title="Isla"),
+        alt.Tooltip("species:N", title="Especie"),
+        alt.Tooltip("frecuencia:Q", title="Frecuencia")
+    ]
+).properties(
+    width=300,
+    height=180,
+    title="Frecuencia de especies por isla"
+)
+
+text_q2 = alt.Chart(heatmap_data).mark_text(baseline="middle").encode(
+    x="species:N",
+    y="island:N",
+    text="frecuencia:Q",
+    color=alt.condition(
+        alt.datum.frecuencia > 50,
+        alt.value("white"),
+        alt.value("black")
+    )
+)
+
+chart_q2 + text_q2
+```
+
+## Análisis e interpretación
+
+La visualización permite identificar con claridad la presencia de especies en cada isla:
+
+Adelie aparece en más de una isla;
+Chinstrap aparece únicamente en Dream;
+Gentoo aparece únicamente en Biscoe.
+
+Por lo tanto, sí existen especies con presencia exclusiva en una sola isla dentro de este dataset. El heatmap resulta útil porque deja ver de manera inmediata dónde hay asociación fuerte entre categorías y dónde no hay registros.
+
+# Pregunta 3 – Diferencias entre sexos
+
+
+¿Existen diferencias notables entre machos y hembras en alguna característica cuantitativa?
+
+## Variable seleccionada
+
+Se eligió la variable culmen_length_mm porque es una característica cuantitativa morfológica útil para comparar diferencias entre sexos.
+
+## Elección del gráfico
+
+El gráfico seleccionado es un boxplot, porque:
+
+compara distribuciones entre dos categorías (sex);
+permite observar mediana, dispersión y posibles valores atípicos;
+es claro y fácil de interpretar.
+
+## Visualización general por sexo
+```{python}
+chart_q3 = alt.Chart(df_clean).mark_boxplot(size=40).encode(
+    x=alt.X("sex:N", title="Sexo"),
+    y=alt.Y("culmen_length_mm:Q", title="Longitud del culmen (mm)"),
+    color=alt.Color("sex:N", title="Sexo"),
+    tooltip=[
+        alt.Tooltip("sex:N", title="Sexo"),
+        alt.Tooltip("culmen_length_mm:Q", title="Longitud del culmen")
+    ]
+).properties(
+    width=400,
+    height=350,
+    title="Distribución de la longitud del culmen por sexo"
+)
+
+chart_q3
+```
+## Visualización complementaria por especie
+
+También se separa la comparación por especie. Esto permite observar si las diferencias entre machos y hembras se mantienen o cambian según el grupo biológico.
+```{python}
+chart_q3_facet = alt.Chart(df_clean).mark_boxplot(size=35).encode(
+    x=alt.X("sex:N", title="Sexo"),
+    y=alt.Y("culmen_length_mm:Q", title="Longitud del culmen (mm)"),
+    color=alt.Color("sex:N", title="Sexo"),
+    tooltip=[
+        alt.Tooltip("species:N", title="Especie"),
+        alt.Tooltip("sex:N", title="Sexo"),
+        alt.Tooltip("culmen_length_mm:Q", title="Longitud del culmen")
+    ]
+).properties(
+    width=180,
+    height=320,
+    title="Longitud del culmen por sexo y especie"
+).facet(
+    column=alt.Column("species:N", title="Especie")
+)
+
+chart_q3_facet
+```
+
+## Análisis e interpretación
+
+Se observan diferencias entre machos y hembras en la longitud del culmen. En términos generales, los machos tienden a presentar valores más altos que las hembras, aunque la magnitud de esa diferencia puede variar según la especie.
+
+La visualización separada por especie es útil porque evita generalizaciones excesivas y muestra que el comportamiento no necesariamente es idéntico en todos los grupos biológicos.

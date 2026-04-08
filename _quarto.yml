@@ -10,6 +10,8 @@ website:
         text: Home
       - href: viz.qmd
         text: Visualizacion
+      - href: actividad.qmd
+        text: Actividad "2"
 
 format:
   html:

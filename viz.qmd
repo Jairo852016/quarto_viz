@@ -25,7 +25,7 @@ scatter_plot = alt.Chart(cars).mark_circle(size=60).encode(
     color='Origin'
 ).properties(
     title='Relación entre peso y rendimiento de los autos'
-)
+).interactive()
 
 scatter_plot
 ```
@@ -44,3 +44,44 @@ bar_chart = alt.Chart(cars).mark_bar().encode(
 bar_chart
 ```
 
+## Visualización con lineas y puntos
+
+```{python} 
+line_chart = alt.Chart(cars).mark_line().encode(
+    x='Year',
+    y='mean(Miles_per_Gallon)'
+)
+
+point_chart = alt.Chart(cars).mark_point().encode(
+    x='Year',
+    y='mean(Miles_per_Gallon)'
+)
+line_chart + point_chart
+```
+
+
+```{python} 
+line_chart = alt.Chart(cars).mark_line().encode(
+    x='Year',
+    y='mean(Miles_per_Gallon)'
+)
+
+#point_chart = alt.Chart(cars).#mark_point().encode(
+#    x='Year',
+#    y='mean(Miles_per_Gallon)'
+#)
+line_chart + line_chart.mark_point()
+```
+
+```{python} 
+line_chart = alt.Chart(cars).mark_line().encode(
+    x='Year',
+    y='mean(Miles_per_Gallon)',
+    color='Origin'
+)
+
+point_chart = line_chart.mark_point().encode(
+    y='Miles_per_Gallon'
+)
+line_chart + point_chart
+```

@@ -4,7 +4,7 @@
     "href": "viz.html",
     "title": "Mi primera visualización con Altair",
     "section": "",
-    "text": "Dataset\nVamos a cargar el dataset desde ‘vega_datasets’:\n\nimport altair as alt\nfrom vega_datasets import data\n\nvamos a usar el dataset ‘cars’ que viene incluido en ‘vega_datasets’:\n\ncars = data.cars()\ncars.head()\n\n\n\n\n\n\n\n\nName\nMiles_per_Gallon\nCylinders\nDisplacement\nHorsepower\nWeight_in_lbs\nAcceleration\nYear\nOrigin\n\n\n\n\n0\nchevrolet chevelle malibu\n18.0\n8\n307.0\n130.0\n3504\n12.0\n1970-01-01\nUSA\n\n\n1\nbuick skylark 320\n15.0\n8\n350.0\n165.0\n3693\n11.5\n1970-01-01\nUSA\n\n\n2\nplymouth satellite\n18.0\n8\n318.0\n150.0\n3436\n11.0\n1970-01-01\nUSA\n\n\n3\namc rebel sst\n16.0\n8\n304.0\n150.0\n3433\n12.0\n1970-01-01\nUSA\n\n\n4\nford torino\n17.0\n8\n302.0\n140.0\n3449\n10.5\n1970-01-01\nUSA\n\n\n\n\n\n\n\n\n\nGráfico de dispersión\nVamos a crear un gráfico de dispersión para visualizar la relación entre el peso del auto (‘Weight_in_lbs’) y su rendimiento en millas por galón (‘Miles_per_Gallon’).\n\nscatter_plot = alt.Chart(cars).mark_circle(size=60).encode(\n    x='Weight_in_lbs',\n    y='Miles_per_Gallon',\n    color='Origin'\n).properties(\n    title='Relación entre peso y rendimiento de los autos'\n)\n\nscatter_plot\n\n\n\n\n\n\n\n\n\nvisualización de barras\nVamos a crear un gráfico de barras para mostrar el número de autos por país de origen (‘Origin’).\n\nbar_chart = alt.Chart(cars).mark_bar().encode(\n    x='Origin',\n    y='count()',\n    color='Origin'\n).properties(\n    title='Número de autos por país de origen'\n)\n\nbar_chart"
+    "text": "Vamos a cargar el dataset desde ‘vega_datasets’:\n\nimport altair as alt\nfrom vega_datasets import data\n\nvamos a usar el dataset ‘cars’ que viene incluido en ‘vega_datasets’:\n\ncars = data.cars()\ncars.head()\n\n\n\n\n\n\n\n\nName\nMiles_per_Gallon\nCylinders\nDisplacement\nHorsepower\nWeight_in_lbs\nAcceleration\nYear\nOrigin\n\n\n\n\n0\nchevrolet chevelle malibu\n18.0\n8\n307.0\n130.0\n3504\n12.0\n1970-01-01\nUSA\n\n\n1\nbuick skylark 320\n15.0\n8\n350.0\n165.0\n3693\n11.5\n1970-01-01\nUSA\n\n\n2\nplymouth satellite\n18.0\n8\n318.0\n150.0\n3436\n11.0\n1970-01-01\nUSA\n\n\n3\namc rebel sst\n16.0\n8\n304.0\n150.0\n3433\n12.0\n1970-01-01\nUSA\n\n\n4\nford torino\n17.0\n8\n302.0\n140.0\n3449\n10.5\n1970-01-01\nUSA"
   },
   {
     "objectID": "index.html#objetivo-general",
@@ -19,5 +19,96 @@
     "title": "Bienvenidos a mi sitio Quarto",
     "section": "Objetivos específicos",
     "text": "Objetivos específicos\n\nObjetivo específico 1\nObjetivo específico 2\nObjetivo específico 3"
+  },
+  {
+    "objectID": "viz.html#visualización-con-lineas-y-puntos",
+    "href": "viz.html#visualización-con-lineas-y-puntos",
+    "title": "Mi primera visualización con Altair",
+    "section": "Visualización con lineas y puntos",
+    "text": "Visualización con lineas y puntos\n\nline_chart = alt.Chart(cars).mark_line().encode(\n    x='Year',\n    y='mean(Miles_per_Gallon)'\n)\n\npoint_chart = alt.Chart(cars).mark_point().encode(\n    x='Year',\n    y='mean(Miles_per_Gallon)'\n)\nline_chart + point_chart\n\n\n\n\n\n\n\n\nline_chart = alt.Chart(cars).mark_line().encode(\n    x='Year',\n    y='mean(Miles_per_Gallon)'\n)\n\n#point_chart = alt.Chart(cars).#mark_point().encode(\n#    x='Year',\n#    y='mean(Miles_per_Gallon)'\n#)\nline_chart + line_chart.mark_point()\n\n\n\n\n\n\n\n\nline_chart = alt.Chart(cars).mark_line().encode(\n    x='Year',\n    y='mean(Miles_per_Gallon)',\n    color='Origin'\n)\n\npoint_chart = line_chart.mark_point().encode(\n    y='Miles_per_Gallon'\n)\nline_chart + point_chart"
+  },
+  {
+    "objectID": "actividad.html",
+    "href": "actividad.html",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "",
+    "text": "Desarrollar la capacidad de seleccionar el tipo adecuado de gráfico para responder preguntas sobre datos categóricos y cuantitativos, utilizando el dataset de pingüinos."
+  },
+  {
+    "objectID": "actividad.html#elección-del-gráfico",
+    "href": "actividad.html#elección-del-gráfico",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "6.1 Elección del gráfico",
+    "text": "6.1 Elección del gráfico\nPara comparar la distribución de una variable cuantitativa entre grupos definidos por dos variables categóricas, se utiliza un gráfico de cajas (boxplot). Este tipo de gráfico es adecuado porque permite visualizar de forma simultánea la mediana, la dispersión, el rango intercuartílico y los valores extremos de la variable analizada. En este caso, el boxplot facilita la comparación de la masa corporal entre distintas especies de pingüinos, permitiendo identificar diferencias claras en sus distribuciones y variabilidad, así como detectar posibles valores atípicos."
+  },
+  {
+    "objectID": "actividad.html#construccion-del-grafico",
+    "href": "actividad.html#construccion-del-grafico",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "7.2 Construccion del Grafico",
+    "text": "7.2 Construccion del Grafico\n\nchart_q2 = alt.Chart(heatmap_data).mark_rect().encode(\n    x=alt.X(\"species:N\", title=\"Especie\"),\n    y=alt.Y(\"island:N\", title=\"Isla\"),\n    color=alt.Color(\"frecuencia:Q\", title=\"Frecuencia\"),\n    tooltip=[\n        alt.Tooltip(\"island:N\", title=\"Isla\"),\n        alt.Tooltip(\"species:N\", title=\"Especie\"),\n        alt.Tooltip(\"frecuencia:Q\", title=\"Frecuencia\")\n    ]\n).properties(\n    width=300,\n    height=180,\n    title=\"Frecuencia de especies por isla\"\n)\n\ntext_q2 = alt.Chart(heatmap_data).mark_text(baseline=\"middle\").encode(\n    x=\"species:N\",\n    y=\"island:N\",\n    text=\"frecuencia:Q\",\n    color=alt.condition(\n        alt.datum.frecuencia &gt; 50,\n        alt.value(\"white\"),\n        alt.value(\"black\")\n    )\n)\n\nchart_q2 + text_q2"
+  },
+  {
+    "objectID": "actividad.html#análisis-e-interpretación",
+    "href": "actividad.html#análisis-e-interpretación",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "6.3 Análisis e interpretación",
+    "text": "6.3 Análisis e interpretación\nA partir de los resultados obtenidos, se observa que la masa corporal de los pingüinos varía principalmente según la especie y en segundo lugar, según la isla. La especie Gentoo, presente únicamente en la isla Biscoe, presenta las masas corporales más altas, con una mediana de 5000 g, un rango intercuartílico elevado (4700–5500 g) y valores máximos que alcanzan los 6300 g, lo que la diferencia claramente de las demás especies. En contraste, la especie Adelie, distribuida en las islas Biscoe, Dream y Torgersen, muestra masas corporales menores y bastante similares entre islas, con medianas de 3750 g en Biscoe, 3575 g en Dream y 3700 g en Torgersen, lo que indica una variación moderada asociada al entorno. Por su parte, la especie Chinstrap, presente solo en la isla Dream, presenta una mediana de 3700 g, comparable a la de Adelie en las distintas islas. En conjunto, los resultados indican que la especie es el factor que más influye en la masa corporal, mientras que la isla introduce variaciones menores dentro de una misma especie."
+  },
+  {
+    "objectID": "actividad.html#variable-seleccionada",
+    "href": "actividad.html#variable-seleccionada",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "8.1 Variable seleccionada",
+    "text": "8.1 Variable seleccionada\nSe eligió la variable culmen_length_mm porque es una característica cuantitativa morfológica útil para comparar diferencias entre sexos."
+  },
+  {
+    "objectID": "actividad.html#elección-del-gráfico-1",
+    "href": "actividad.html#elección-del-gráfico-1",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "7.1 Elección del gráfico",
+    "text": "7.1 Elección del gráfico\nAquí se busca mostrar la relación entre dos variables categóricas: species e island.\nUna visualización apropiada es un heatmap de frecuencias, porque:\nresume la relación entre categorías; permite ver asociaciones de forma compacta; facilita identificar rápidamente ausencias y concentraciones. ## Preparación de datos\n\nheatmap_data = (\n    df_clean.groupby([\"island\", \"species\"])\n    .size()\n    .reset_index(name=\"frecuencia\")\n)\n\nheatmap_data\n\n\n\n\n\n\n\n\nisland\nspecies\nfrecuencia\n\n\n\n\n0\nBiscoe\nAdelie\n44\n\n\n1\nBiscoe\nGentoo\n119\n\n\n2\nDream\nAdelie\n55\n\n\n3\nDream\nChinstrap\n68\n\n\n4\nTorgersen\nAdelie\n47"
+  },
+  {
+    "objectID": "actividad.html#visualización-general-por-sexo",
+    "href": "actividad.html#visualización-general-por-sexo",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "8.3 Visualización general por sexo",
+    "text": "8.3 Visualización general por sexo\n\nchart_q3 = alt.Chart(df_clean).mark_boxplot(size=40).encode(\n    x=alt.X(\"sex:N\", title=\"Sexo\"),\n    y=alt.Y(\"culmen_length_mm:Q\", title=\"Longitud del culmen (mm)\"),\n    color=alt.Color(\"sex:N\", title=\"Sexo\"),\n    tooltip=[\n        alt.Tooltip(\"sex:N\", title=\"Sexo\"),\n        alt.Tooltip(\"culmen_length_mm:Q\", title=\"Longitud del culmen\")\n    ]\n).properties(\n    width=400,\n    height=350,\n    title=\"Distribución de la longitud del culmen por sexo\"\n)\n\nchart_q3"
+  },
+  {
+    "objectID": "actividad.html#visualización-complementaria-por-especie",
+    "href": "actividad.html#visualización-complementaria-por-especie",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "8.4 Visualización complementaria por especie",
+    "text": "8.4 Visualización complementaria por especie\nTambién se separa la comparación por especie. Esto permite observar si las diferencias entre machos y hembras se mantienen o cambian según el grupo biológico.\n\nchart_q3_facet = alt.Chart(df_clean).mark_boxplot(size=35).encode(\n    x=alt.X(\"sex:N\", title=\"Sexo\"),\n    y=alt.Y(\"culmen_length_mm:Q\", title=\"Longitud del culmen (mm)\"),\n    color=alt.Color(\"sex:N\", title=\"Sexo\"),\n    tooltip=[\n        alt.Tooltip(\"species:N\", title=\"Especie\"),\n        alt.Tooltip(\"sex:N\", title=\"Sexo\"),\n        alt.Tooltip(\"culmen_length_mm:Q\", title=\"Longitud del culmen\")\n    ]\n).properties(\n    width=180,\n    height=320,\n    title=\"Longitud del culmen por sexo y especie\"\n).facet(\n    column=alt.Column(\"species:N\", title=\"Especie\")\n)\n\nchart_q3_facet"
+  },
+  {
+    "objectID": "actividad.html#análisis-e-interpretación-1",
+    "href": "actividad.html#análisis-e-interpretación-1",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "7.3 Análisis e interpretación",
+    "text": "7.3 Análisis e interpretación\nLa visualización permite identificar con claridad la presencia de especies en cada isla:\nAdelie aparece en más de una isla; Chinstrap aparece únicamente en Dream; Gentoo aparece únicamente en Biscoe.\nPor lo tanto, sí existen especies con presencia exclusiva en una sola isla dentro de este dataset. El heatmap resulta útil porque deja ver de manera inmediata dónde hay asociación fuerte entre categorías y dónde no hay registros."
+  },
+  {
+    "objectID": "actividad.html#elección-del-gráfico-2",
+    "href": "actividad.html#elección-del-gráfico-2",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "8.2 Elección del gráfico",
+    "text": "8.2 Elección del gráfico\nEl gráfico seleccionado es un boxplot, porque:\ncompara distribuciones entre dos categorías (sex); permite observar mediana, dispersión y posibles valores atípicos; es claro y fácil de interpretar."
+  },
+  {
+    "objectID": "actividad.html#facilitar-comparacion-entre-subgrupos",
+    "href": "actividad.html#facilitar-comparacion-entre-subgrupos",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "6.2 Facilitar comparacion entre subgrupos",
+    "text": "6.2 Facilitar comparacion entre subgrupos\nPara facilitar la comparación entre subgrupos sin sobrecargar un solo gráfico, se recurre al facetado (small multiples), separando la visualización en paneles según una de las variables categóricas, en este caso la isla. Cada panel mantiene la misma escala y estructura visual, lo que permite comparar las distribuciones de la masa corporal por especie dentro de cada isla de manera clara y ordenada. Esta estrategia reduce la complejidad visual, evita la superposición de demasiados grupos en un solo eje y mejora la legibilidad, haciendo más evidente tanto las diferencias entre especies como las variaciones entre islas.\n\nchart_q1 = alt.Chart(\n    df_clean.dropna(subset=[\"body_mass_g\"])\n).properties(\n    width=140,\n    height=300\n).mark_boxplot().encode(\n    x=alt.X(\"species:N\", title=\"Especie\"),\n    y=alt.Y(\"body_mass_g:Q\", title=\"Masa corporal (g)\"),\n    color=alt.Color(\"species:N\", legend=None)\n).facet(\n    column=alt.Column(\"island:N\", title=\"Isla\")\n).properties(\n    title=\"Distribución de la masa corporal por especie e isla\"\n)\nchart_q1"
+  },
+  {
+    "objectID": "actividad.html#análisis-e-interpretación-2",
+    "href": "actividad.html#análisis-e-interpretación-2",
+    "title": "Actividad: Selección de visualizaciones para datos categóricos y cuantitativos",
+    "section": "8.5 Análisis e interpretación",
+    "text": "8.5 Análisis e interpretación\nSe observan diferencias entre machos y hembras en la longitud del culmen. En términos generales, los machos tienden a presentar valores más altos que las hembras, aunque la magnitud de esa diferencia puede variar según la especie.\nLa visualización separada por especie es útil porque evita generalizaciones excesivas y muestra que el comportamiento no necesariamente es idéntico en todos los grupos biológicos."
   }
 ]
