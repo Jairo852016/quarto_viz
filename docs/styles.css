@@ -1,0 +1,270 @@
+/* =========================
+   ESTILO GENERAL
+========================= */
+body {
+  font-family: "Segoe UI", "Inter", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #1f2937;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+}
+
+/* Contenedor principal */
+main.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 28px 60px 28px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 35px rgba(31, 78, 121, 0.10);
+  border-radius: 18px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(4px);
+}
+
+/* =========================
+   TÍTULO Y METADATOS
+========================= */
+h1.title {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #0f2f57;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.subtitle,
+.quarto-title-meta {
+  text-align: center;
+}
+
+.quarto-title-meta-heading {
+  color: #4b5563;
+  font-weight: 700;
+}
+
+.quarto-title-meta-contents {
+  color: #1f4e79;
+  font-weight: 600;
+}
+
+/* =========================
+   ENCABEZADOS
+========================= */
+h1, h2, h3, h4 {
+  font-weight: 800;
+  color: #123a63;
+  letter-spacing: -0.2px;
+}
+
+h2 {
+  margin-top: 2.2rem;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, #1f4e79, #3d7db8);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(31, 78, 121, 0.18);
+}
+
+h3 {
+  margin-top: 1.6rem;
+  padding-left: 12px;
+  border-left: 5px solid #3d7db8;
+}
+
+/* =========================
+   TEXTO Y PÁRRAFOS
+========================= */
+p {
+  text-align: justify;
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: #0f2f57;
+}
+
+a {
+  color: #0b63c9;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   LISTAS
+========================= */
+ul, ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.35rem;
+}
+
+/* =========================
+   TABLAS
+========================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(15, 47, 87, 0.08);
+  background: white;
+}
+
+thead th {
+  background: linear-gradient(90deg, #163a5f, #2e6da4);
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  padding: 12px 10px;
+  border: none;
+}
+
+tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8fbff;
+}
+
+tbody tr:hover {
+  background-color: #eaf3ff;
+  transition: 0.2s ease;
+}
+
+/* =========================
+   BLOQUES DE CÓDIGO
+========================= */
+pre.sourceCode,
+div.sourceCode {
+  border-radius: 14px;
+  border: 1px solid #dbe7f3;
+  box-shadow: 0 8px 18px rgba(31, 78, 121, 0.08);
+  margin-top: 0.8rem;
+  margin-bottom: 1.2rem;
+  overflow: auto;
+}
+
+pre code {
+  font-size: 14px;
+}
+
+code {
+  color: #b42318;
+  background: #fdf2f2;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* =========================
+   TOC / TABLA DE CONTENIDO
+========================= */
+#TOC,
+.sidebar nav[role="doc-toc"] {
+  background: white;
+  border-radius: 14px;
+  padding: 16px 14px;
+  box-shadow: 0 8px 24px rgba(15, 47, 87, 0.08);
+  border: 1px solid #e5eef8;
+}
+
+.sidebar nav[role="doc-toc"] ul li a {
+  color: #1f4e79;
+  font-weight: 600;
+}
+
+.sidebar nav[role="doc-toc"] ul li a:hover {
+  color: #0b63c9;
+}
+
+/* =========================
+   CALLOUTS
+========================= */
+.callout {
+  border-radius: 14px;
+  border: none;
+  box-shadow: 0 8px 20px rgba(31, 78, 121, 0.08);
+}
+
+.callout-note {
+  background: linear-gradient(180deg, #eef6ff, #ffffff);
+  border-left: 6px solid #2e6da4;
+}
+
+.callout-warning {
+  background: linear-gradient(180deg, #fff7e8, #ffffff);
+  border-left: 6px solid #f59e0b;
+}
+
+.callout-important {
+  background: linear-gradient(180deg, #fef2f2, #ffffff);
+  border-left: 6px solid #dc2626;
+}
+
+/* =========================
+   GRÁFICOS / FIGURAS
+========================= */
+.quarto-figure,
+.cell-output-display {
+  background: white;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 24px rgba(15, 47, 87, 0.08);
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+/* =========================
+   BLOQUES DE CITA
+========================= */
+blockquote {
+  border-left: 5px solid #3d7db8;
+  background: #f8fbff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  color: #374151;
+}
+
+/* =========================
+   SEPARADORES
+========================= */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, #1f4e79, #93c5fd, transparent);
+  margin: 2rem 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  main.content {
+    margin: 10px;
+    padding: 18px 16px 40px 16px;
+    border-radius: 14px;
+  }
+
+  h1.title {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  body {
+    font-size: 15.5px;
+  }
+}

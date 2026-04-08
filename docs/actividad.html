@@ -115,6 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -243,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>altair</code> se emplea para construir las visualizaciones, ya que permite crear gráficos declarativos, claros e interactivos.</li>
 </ul>
 <p>Luego, se carga el archivo CSV directamente desde la URL proporcionada y se almacena en un DataFrame llamado <code>df</code>, que será la base de todo el trabajo.</p>
-<div id="c151d52b" class="cell" data-execution_count="1">
+<div id="1606e80f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -329,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exploración-inicial" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Exploración inicial</h1>
 <p>Antes de realizar las visualizaciones, es importante explorar la estructura general del dataset. Esto permite conocer los nombres de las variables, los tipos de datos y detectar si existen valores faltantes que deban tratarse antes del análisis.</p>
-<div id="e2884268" class="cell" data-execution_count="2">
+<div id="e297d48b" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.info()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.describe(include<span class="op">=</span><span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -485,6 +486,19 @@ memory usage: 18.9 KB</code></pre>
 </section>
 <section id="limpieza-de-datos" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Limpieza de datos</h1>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La limpieza de datos fue necesaria porque la variable <code>sex</code> contenía valores inválidos como <code>"."</code>, que no correspondían a categorías útiles para el análisis.</p>
+</div>
+</div>
 <p>Antes de construir las visualizaciones, se realizó una etapa básica de limpieza de datos. En este caso, el objetivo fue trabajar únicamente con registros completos en las variables necesarias para responder las preguntas de la actividad.</p>
 <p>El dataset contiene algunas observaciones con valores faltantes. Si esos registros se dejan en el análisis, pueden generar problemas al momento de calcular estadísticas o construir gráficos, especialmente cuando se comparan grupos por especie, isla y sexo.</p>
 <p>Por esta razón, se utilizó <code>dropna()</code> para eliminar las filas que tuvieran valores nulos en las siguientes variables:</p>
@@ -497,7 +511,7 @@ memory usage: 18.9 KB</code></pre>
 <li><code>culmen_depth_mm</code></li>
 </ul>
 <p>De esta manera, se garantiza que las comparaciones y visualizaciones se hagan sobre datos consistentes y completos.</p>
-<div id="44d1281e" class="cell" data-execution_count="3">
+<div id="5c68a801" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"species"</span>, <span class="st">"island"</span>, <span class="st">"sex"</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"body_mass_g"</span>, <span class="st">"culmen_length_mm"</span>, <span class="st">"culmen_depth_mm"</span></span>
@@ -525,7 +539,20 @@ memory usage: 18.9 KB</code></pre>
 </section>
 <section id="construccion-del-grafico" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="construccion-del-grafico"><span class="header-section-number">6.3</span> Construccion del Grafico</h2>
-<div id="ea02913b" class="cell" data-execution_count="4">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En esta sección se analiza la distribución de la masa corporal entre especies e islas, utilizando un boxplot.</p>
+</div>
+</div>
+<div id="820c9883" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chart_q1 <span class="op">=</span> alt.Chart(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_clean.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>).properties(</span>
@@ -544,23 +571,23 @@ memory usage: 18.9 KB</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="4">
 
 <style>
-  #altair-viz-a106bd1625e9457f88d018a901ad96ff.vega-embed {
+  #altair-viz-19814718006b41c7a43a09d411c27097.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-a106bd1625e9457f88d018a901ad96ff.vega-embed details,
-  #altair-viz-a106bd1625e9457f88d018a901ad96ff.vega-embed details summary {
+  #altair-viz-19814718006b41c7a43a09d411c27097.vega-embed details,
+  #altair-viz-19814718006b41c7a43a09d411c27097.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-a106bd1625e9457f88d018a901ad96ff"></div>
+<div id="altair-viz-19814718006b41c7a43a09d411c27097"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a106bd1625e9457f88d018a901ad96ff") {
-      outputDiv = document.getElementById("altair-viz-a106bd1625e9457f88d018a901ad96ff");
+    if (outputDiv.id !== "altair-viz-19814718006b41c7a43a09d411c27097") {
+      outputDiv = document.getElementById("altair-viz-19814718006b41c7a43a09d411c27097");
     }
 
     const paths = {
@@ -615,7 +642,7 @@ memory usage: 18.9 KB</code></pre>
 </section>
 <section id="construccion-de-tabla" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="construccion-de-tabla"><span class="header-section-number">6.4</span> Construccion de Tabla</h2>
-<div id="86bd2858" class="cell" data-execution_count="5">
+<div id="1f920e7a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar valores faltantes en la variable analizada</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="op">=</span> df_clean.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -731,7 +758,7 @@ memory usage: 18.9 KB</code></pre>
 </section>
 <section id="análisis-e-interpretación" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="análisis-e-interpretación"><span class="header-section-number">6.5</span> Análisis e interpretación</h2>
-<p>A partir de los resultados obtenidos, se observa que la masa corporal de los pingüinos varía principalmente según la especie y en segundo lugar, según la isla. La especie Gentoo, presente únicamente en la isla Biscoe, presenta las masas corporales más altas, con una mediana de 5000 g, un rango intercuartílico elevado (4700–5500 g) y valores máximos que alcanzan los 6300 g, lo que la diferencia claramente de las demás especies. En contraste, la especie Adelie, distribuida en las islas Biscoe, Dream y Torgersen, muestra masas corporales menores y bastante similares entre islas, con medianas de 3750 g en Biscoe, 3575 g en Dream y 3700 g en Torgersen, lo que indica una variación moderada asociada al entorno. Por su parte, la especie Chinstrap, presente solo en la isla Dream, presenta una mediana de 3700 g, comparable a la de Adelie en las distintas islas. En conjunto, los resultados indican que la especie es el factor que más influye en la masa corporal, mientras que la isla introduce variaciones menores dentro de una misma especie.</p>
+<p>A partir de los resultados obtenidos, se observa que la masa corporal de los pingüinos varía principalmente según la especie y en segundo lugar, según la isla. La especie Gentoo, presente únicamente en la isla Biscoe, presenta las masas corporales más altas, con una mediana de 5050 g, un rango intercuartílico elevado (4700–5500 g) y valores máximos que alcanzan los 6300 g, lo que la diferencia claramente de las demás especies. En contraste, la especie Adelie, distribuida en las islas Biscoe, Dream y Torgersen, muestra masas corporales menores y bastante similares entre islas, con medianas de 3750 g en Biscoe, 3600 g en Dream y 3700 g en Torgersen, lo que indica una variación moderada asociada al entorno. Por su parte, la especie Chinstrap, presente solo en la isla Dream, presenta una mediana de 3700 g, comparable a la de Adelie en las distintas islas. En conjunto, los resultados indican que la especie es el factor que más influye en la masa corporal, mientras que la isla introduce variaciones menores dentro de una misma especie.</p>
 </section>
 </section>
 <section id="pregunta-2-ubicación-de-especies" class="level1" data-number="7">
@@ -742,7 +769,7 @@ memory usage: 18.9 KB</code></pre>
 <p>Aquí se busca mostrar la relación entre dos variables categóricas: species e island.</p>
 <p>Una visualización apropiada es un heatmap de frecuencias, porque:</p>
 <p>resume la relación entre categorías; permite ver asociaciones de forma compacta; facilita identificar rápidamente ausencias y concentraciones. ## Preparación de datos</p>
-<div id="85219235" class="cell" data-execution_count="6">
+<div id="038c2c21" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="op">=</span> (</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df_clean.groupby([<span class="st">"island"</span>, <span class="st">"species"</span>])</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    .size()</span>
@@ -803,7 +830,7 @@ memory usage: 18.9 KB</code></pre>
 </section>
 <section id="construccion-del-grafico-1" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="construccion-del-grafico-1"><span class="header-section-number">7.2</span> Construccion del Grafico</h2>
-<div id="73769fed" class="cell" data-execution_count="7">
+<div id="7b9e092a" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>chart_q2 <span class="op">=</span> alt.Chart(heatmap_data).mark_rect().encode(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>alt.X(<span class="st">"species:N"</span>, title<span class="op">=</span><span class="st">"Especie"</span>),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">"island:N"</span>, title<span class="op">=</span><span class="st">"Isla"</span>),</span>
@@ -834,23 +861,23 @@ memory usage: 18.9 KB</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="7">
 
 <style>
-  #altair-viz-4cb38211d4a445cba65b9e09401928ca.vega-embed {
+  #altair-viz-164b9c877f3a4c77b090b5ccaa4fa031.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-4cb38211d4a445cba65b9e09401928ca.vega-embed details,
-  #altair-viz-4cb38211d4a445cba65b9e09401928ca.vega-embed details summary {
+  #altair-viz-164b9c877f3a4c77b090b5ccaa4fa031.vega-embed details,
+  #altair-viz-164b9c877f3a4c77b090b5ccaa4fa031.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-4cb38211d4a445cba65b9e09401928ca"></div>
+<div id="altair-viz-164b9c877f3a4c77b090b5ccaa4fa031"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4cb38211d4a445cba65b9e09401928ca") {
-      outputDiv = document.getElementById("altair-viz-4cb38211d4a445cba65b9e09401928ca");
+    if (outputDiv.id !== "altair-viz-164b9c877f3a4c77b090b5ccaa4fa031") {
+      outputDiv = document.getElementById("altair-viz-164b9c877f3a4c77b090b5ccaa4fa031");
     }
 
     const paths = {
@@ -924,7 +951,7 @@ memory usage: 18.9 KB</code></pre>
 </section>
 <section id="visualización-general-por-sexo" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="visualización-general-por-sexo"><span class="header-section-number">8.3</span> Visualización general por sexo</h2>
-<div id="6cb66c4b" class="cell" data-execution_count="8">
+<div id="0a27cf32" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>chart_q3 <span class="op">=</span> alt.Chart(df_clean).mark_boxplot(size<span class="op">=</span><span class="dv">40</span>).encode(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>alt.X(<span class="st">"sex:N"</span>, title<span class="op">=</span><span class="st">"Sexo"</span>),</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">"culmen_length_mm:Q"</span>, title<span class="op">=</span><span class="st">"Longitud del culmen (mm)"</span>),</span>
@@ -943,23 +970,23 @@ memory usage: 18.9 KB</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="8">
 
 <style>
-  #altair-viz-72bc2b7e7be144e4b8a8fedd38071843.vega-embed {
+  #altair-viz-4a621da8b890468195b5744307a588a3.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-72bc2b7e7be144e4b8a8fedd38071843.vega-embed details,
-  #altair-viz-72bc2b7e7be144e4b8a8fedd38071843.vega-embed details summary {
+  #altair-viz-4a621da8b890468195b5744307a588a3.vega-embed details,
+  #altair-viz-4a621da8b890468195b5744307a588a3.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-72bc2b7e7be144e4b8a8fedd38071843"></div>
+<div id="altair-viz-4a621da8b890468195b5744307a588a3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-72bc2b7e7be144e4b8a8fedd38071843") {
-      outputDiv = document.getElementById("altair-viz-72bc2b7e7be144e4b8a8fedd38071843");
+    if (outputDiv.id !== "altair-viz-4a621da8b890468195b5744307a588a3") {
+      outputDiv = document.getElementById("altair-viz-4a621da8b890468195b5744307a588a3");
     }
 
     const paths = {
@@ -1015,7 +1042,7 @@ memory usage: 18.9 KB</code></pre>
 <section id="visualización-complementaria-por-especie" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="visualización-complementaria-por-especie"><span class="header-section-number">8.4</span> Visualización complementaria por especie</h2>
 <p>También se separa la comparación por especie. Esto permite observar si las diferencias entre machos y hembras se mantienen o cambian según el grupo biológico.</p>
-<div id="a3c15eec" class="cell" data-execution_count="9">
+<div id="cf365ae0" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>chart_q3_facet <span class="op">=</span> alt.Chart(df_clean).mark_boxplot(size<span class="op">=</span><span class="dv">35</span>).encode(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>alt.X(<span class="st">"sex:N"</span>, title<span class="op">=</span><span class="st">"Sexo"</span>),</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">"culmen_length_mm:Q"</span>, title<span class="op">=</span><span class="st">"Longitud del culmen (mm)"</span>),</span>
@@ -1037,23 +1064,23 @@ memory usage: 18.9 KB</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="9">
 
 <style>
-  #altair-viz-a6d083d4636744388dc27e8fb04c3642.vega-embed {
+  #altair-viz-f87179650f5244329bc121d81c6bf271.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-a6d083d4636744388dc27e8fb04c3642.vega-embed details,
-  #altair-viz-a6d083d4636744388dc27e8fb04c3642.vega-embed details summary {
+  #altair-viz-f87179650f5244329bc121d81c6bf271.vega-embed details,
+  #altair-viz-f87179650f5244329bc121d81c6bf271.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-a6d083d4636744388dc27e8fb04c3642"></div>
+<div id="altair-viz-f87179650f5244329bc121d81c6bf271"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a6d083d4636744388dc27e8fb04c3642") {
-      outputDiv = document.getElementById("altair-viz-a6d083d4636744388dc27e8fb04c3642");
+    if (outputDiv.id !== "altair-viz-f87179650f5244329bc121d81c6bf271") {
+      outputDiv = document.getElementById("altair-viz-f87179650f5244329bc121d81c6bf271");
     }
 
     const paths = {
